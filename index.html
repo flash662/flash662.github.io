@@ -11,10 +11,9 @@
 
     <meta property="og:title" content="衛生紙計算機"/>
     <meta property="og:url" content="http://works.orbas.net"/>
-    <meta property="og:image" content="http://works.orbas.net/images/logo.png"/>
+    <meta property="og:image" content="http://works.orbas.net/images/logo_xl.png"/>
     <meta property="og:site_name" content="Tissue Calculator"/>
     <meta property="og:description" content="看著眼花繚亂的衛生紙品牌、張數、幾抽，如何找到最便宜的衛生紙？使用衛生紙計算機就對了"/>
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
@@ -34,14 +33,22 @@
         ga('send', 'pageview');
 
     </script>
+
 </head>
 <body>
 
 <div class="container" id="app">
 
+    <div id="fb-root"></div>
+
+
     <h1>
         <img src="images/logo.png" alt="tissue caculator" />
-        衛生紙計算機</h1>
+        衛生紙計算機
+
+        <div class="fb-like" data-href="http://works.orbas.net" data-layout="button_count"
+             data-action="like" data-size="large" data-show-faces="true" data-share="true" style="float: right"></div>
+    </h1>
 
     <div class="row">
         <div class="col-md-12">
@@ -84,8 +91,9 @@
             </button>
         </div>
 
-
     </div>
+
+    <hr>
 
     <div class="row" style="margin-top: 15px;">
         <div class="col-md-12" style="text-align: center">
@@ -119,6 +127,14 @@
 
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.8&appId=1352851541447215";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 </script>
 
 <script src="js/app.js"></script>
