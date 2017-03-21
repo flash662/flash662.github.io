@@ -9,8 +9,8 @@
 
     <meta name="description" content="計算最划算的衛生紙，簡單易操作">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.4/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -41,10 +41,10 @@
                     <tr>
                         <th></th>
                         <th>名稱</th>
-                        <th>抽</th>
-                        <th>包</th>
-                        <th>價錢</th>
-                        <th>單價/抽</th>
+                        <th style="width: 70px">抽</th>
+                        <th style="width: 70px">包</th>
+                        <th style="width: 100px">價錢</th>
+                        <th style="width: 150px">單價/抽</th>
                         <th>備註</th>
                         <th></th>
                     </tr>
@@ -58,18 +58,25 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12 form-inline">
+
+        <div class="col-xs-8 col-md-2">
 
             <div class="input-group">
                 <div class="input-group-addon">增加欄位</div>
                 <input type="text" v-model="count" class="form-control">
             </div>
+
+        </div>
+
+        <div class="col-xs-4 col-md-2">
             <button type="button" class="btn btn-primary btn-sm" @click="addColumn">
                 <i class="fa fa-plus"></i>
             </button>
-
         </div>
+
+
     </div>
+
 </div>
 
 <script type="text/x-template" id="template-tissue">
@@ -98,7 +105,7 @@
         computed: {
             subtotal: function() {
                 var total = parseFloat(this.data.price) / (parseInt(this.data.sheet) * parseInt(this.data.package));
-                return isNaN(total) ? '' : total;
+                return isNaN(total) ? '' : total.toFixed(5);
             }
         },
         watch: {
@@ -112,26 +119,19 @@
         el: '#app',
         data: {
             count: 5,
-            data: [
-                {
-                    name: '',
-                    sheet: '',
-                    package: '',
-                    price: '',
-                    subtotal: ''
-                }
-            ]
+            mockData: {
+                name: '',
+                sheet: '',
+                package: '',
+                price: '',
+                subtotal: ''
+            },
+            data: []
         },
         methods: {
             addColumn: function() {
                 for(i=0; i<this.count; i++) {
-                    this.data.push({
-                        name: '',
-                        sheet: '',
-                        package: '',
-                        price: '',
-                        subtotal: ''
-                    });
+                    this.data.push(Vue.util.extend({}, this.mockData));
                 }
             },
             isCheapest: function (data) {
@@ -146,6 +146,9 @@
 
                 return Math.min.apply(null, arr);
             }
+        },
+        mounted: function () {
+            this.addColumn();
         }
     });
 </script>
