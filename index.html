@@ -143,10 +143,22 @@
     <div>
         <div class="panel panel-default" :class="{ 'panel-success': cheapest }">
             <div class="panel-heading">
-                <div class="input-group">
-                    <div class="input-group-addon">{{index}}</div>
-                    <input type="text" class="form-control inline-block" v-model="data.name" placeholder="名稱" />
+
+                <div class="row">
+                    <div class="col-sm-10 col-xs-10">
+                        <div class="input-group">
+                            <div class="input-group-addon">{{index}}</div>
+                            <input type="text" class="form-control inline-block" v-model="data.name" placeholder="名稱" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 col-xs-2">
+                        <button type="button" class="btn btn-sm btn-danger" @click="$emit('remove')">
+                            <i class="fa fa-remove"></i>
+                        </button>
+                    </div>
                 </div>
+
             </div>
 
             <table class="table">
