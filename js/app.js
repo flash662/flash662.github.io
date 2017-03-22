@@ -9,12 +9,17 @@ var tissueComponent = {
     watch: {
         subtotal: function () {
             this.data.subtotal = this.subtotal;
+        },
+        data: {
+            handler: function () {
+                this.$parent.save();
+            },
+            deep: true
         }
     }
 };
 
 Vue.component('tissue', $.extend({template: '#template-tissue'}, tissueComponent));
-
 Vue.component('tissuePanel', $.extend({template: '#template-tissue-panel'}, tissueComponent));
 
 var app = new Vue({
@@ -31,6 +36,11 @@ var app = new Vue({
         data: []
     },
     methods: {
+        save: function() {
+            if (localStorage) {
+                localStorage.setItem('data', JSON.stringify(this.data));
+            }
+        },
         addColumn: function() {
             for(i=0; i<this.count; i++) {
                 this.data.push(Vue.util.extend({}, this.mockData));
@@ -38,6 +48,9 @@ var app = new Vue({
         },
         isCheapest: function (data) {
             return data.subtotal == this.cheapest;
+        },
+        hasStorageData: function() {
+            return localStorage && localStorage.hasOwnProperty('data');
         }
     },
     computed: {
@@ -50,6 +63,18 @@ var app = new Vue({
         }
     },
     mounted: function () {
+
+        try {
+
+            if(this.hasStorageData()) {
+                this.data = JSON.parse(localStorage.getItem('data'));
+                return;
+            }
+
+        } catch(e) {
+            //
+        }
+
         this.addColumn();
     }
 });
