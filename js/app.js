@@ -1,5 +1,4 @@
-Vue.component('tissue', {
-    template: '#template-tissue',
+var tissueComponent = {
     props: ['data', 'index', 'cheapest'],
     computed: {
         subtotal: function() {
@@ -12,7 +11,11 @@ Vue.component('tissue', {
             this.data.subtotal = this.subtotal;
         }
     }
-});
+};
+
+Vue.component('tissue', $.extend({template: '#template-tissue'}, tissueComponent));
+
+Vue.component('tissuePanel', $.extend({template: '#template-tissue-panel'}, tissueComponent));
 
 var app = new Vue({
     el: '#app',

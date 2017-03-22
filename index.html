@@ -41,13 +41,12 @@
 
     <div id="fb-root"></div>
 
-
     <h1>
         <img src="images/logo.png" alt="tissue caculator" />
         衛生紙計算機
     </h1>
 
-    <div class="row">
+    <div class="row visible-md-block visible-lg-block">
         <div class="col-md-12">
 
             <table class="table table-striped">
@@ -68,6 +67,13 @@
                 </tbody>
             </table>
 
+        </div>
+    </div>
+
+    <div class="row visible-sm-block visible-xs-block">
+        <div class="col-sm-12">
+            <div is="tissue-panel" v-for="(d, i) in data" :data="d" :index="i+1" :cheapest="isCheapest(d)" @remove="data.splice(i, 1)">
+            </div>
         </div>
     </div>
 
@@ -129,6 +135,61 @@
             </button>
         </td>
     </tr>
+
+</script>
+
+<script type="text/x-template" id="template-tissue-panel">
+
+    <div>
+        <div class="panel panel-default" :class="{ 'panel-success': cheapest }">
+            <div class="panel-heading">
+                <div class="input-group">
+                    <div class="input-group-addon">{{index}}</div>
+                    <input type="text" class="form-control inline-block" v-model="data.name" placeholder="名稱" />
+                </div>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr :class="{ 'success': cheapest }">
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" v-model="data.sheet" />
+                            <div class="input-group-addon">抽</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" v-model="data.package" />
+                            <div class="input-group-addon">包</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr :class="{ 'success': cheapest }">
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" v-model="data.price" />
+                            <div class="input-group-addon">元</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-addon">單價/抽</div>
+                            <input type="text" class="form-control" v-model="subtotal" readonly />
+                        </div>
+                    </td>
+                </tr>
+                <tr :class="{ 'success': cheapest }">
+                    <td colspan="4">
+                        <input type="text" class="form-control" v-model="data.note" placeholder="備註" />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr>
+    </div>
 
 </script>
 
