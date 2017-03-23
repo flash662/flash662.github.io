@@ -25,6 +25,7 @@ Vue.component('tissuePanel', $.extend({template: '#template-tissue-panel'}, tiss
 var app = new Vue({
     el: '#app',
     data: {
+        autoSave: true,
         count: 5,
         mockData: {
             name: '',
@@ -77,4 +78,13 @@ var app = new Vue({
 
         this.addColumn();
     }
+});
+
+$(function () {
+    $(".b-switch").bootstrapSwitch({
+        size: 'small',
+        onSwitchChange: function () {
+
+        }
+    });
 });
