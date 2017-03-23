@@ -38,8 +38,13 @@ var app = new Vue({
     },
     methods: {
         save: function() {
-            if (localStorage) {
+            if (localStorage && this.autoSave) {
                 localStorage.setItem('data', JSON.stringify(this.data));
+            }
+        },
+        clearStorage: function () {
+            if(localStorage) {
+                localStorage.removeItem('data');
             }
         },
         addColumn: function() {
@@ -52,6 +57,30 @@ var app = new Vue({
         },
         hasStorageData: function() {
             return localStorage && localStorage.hasOwnProperty('data');
+        },
+        loadData: function () {
+
+            try {
+
+                if(this.hasStorageData()) {
+                    this.data = JSON.parse(localStorage.getItem('data'));
+                } else {
+                    this.addColumn();
+                }
+
+            } catch(e) {
+
+                //
+            }
+        }
+    },
+    watch: {
+        autoSave: function (value) {
+            if(value) {
+                this.save();
+            } else {
+                this.clearStorage();
+            }
         }
     },
     computed: {
@@ -65,26 +94,30 @@ var app = new Vue({
     },
     mounted: function () {
 
+        var $this = this;
+        $(".b-switch").bootstrapSwitch({
+            size: 'mini',
+            onSwitchChange: function () {
+                var checked = $(this).prop('checked');
+                $this.autoSave = checked;
+                localStorage.setItem('autoSave', checked);
+            }
+        });
+    },
+    beforeMount: function () {
+
+        this.loadData();
+
         try {
 
-            if(this.hasStorageData()) {
-                this.data = JSON.parse(localStorage.getItem('data'));
-                return;
+            if (localStorage.hasOwnProperty('autoSave')) {
+                this.autoSave = JSON.parse(localStorage.getItem('autoSave'));
             }
 
-        } catch(e) {
+        } catch (e) {
             //
         }
 
-        this.addColumn();
+
     }
-});
-
-$(function () {
-    $(".b-switch").bootstrapSwitch({
-        size: 'small',
-        onSwitchChange: function () {
-
-        }
-    });
 });
